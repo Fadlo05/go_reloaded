@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"io"
 	"os"
+
 	"goreloaded/functions"
-	
 )
 
 func readFile(filename string) (string, error) {
@@ -30,7 +30,11 @@ func main() {
 		fmt.Println("Erreur lors de la lecture du fichier:", err)
 		return
 	}
-
-	token := functions.Tokenizer(text)
-	fmt.Println(token)
+	words := functions.Clean(text)
+	tokens := functions.Tokenizer(words)
+	tokens = functions.Process(tokens)
+	tokens = functions.ChangesWithN(tokens)
+	tokens = functions.MergeApostrophes(tokens)
+	// result := RebuildText(tokens)
+	fmt.Println(tokens)
 }

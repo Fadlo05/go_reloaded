@@ -1,19 +1,13 @@
 package functions
 
-import (
-	"strings"
-)
-
 func isPunct(c byte) bool {
 	return c == '.' || c == ',' || c == '!' || c == '?' || c == ':' || c == ';'
 }
 
-func Tokenizer(text string) []string {
-	parts := strings.Split(text, " ")
-
+func Tokenizer(words []string) []string {
 	str := []string{}
 
-	for _, word := range parts {
+	for _, word := range words {
 		if len(word) == 0 {
 			continue
 		}
