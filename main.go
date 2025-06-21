@@ -30,11 +30,18 @@ func main() {
 		fmt.Println("Erreur lors de la lecture du fichier:", err)
 		return
 	}
-	words := functions.Clean(text)
-	tokens := functions.Tokenizer(words)
-	tokens = functions.Process(tokens)
-	tokens = functions.ChangesWithN(tokens)
-	tokens = functions.MergeApostrophes(tokens)
-	// result := RebuildText(tokens)
-	fmt.Println(tokens)
+	str := functions.Traitments(text)
+	result := functions.RebuildText(str)
+	outputFile := args[1]
+	err = os.WriteFile(outputFile, []byte(result), 0o644)
+	if err != nil {
+		fmt.Printf("Error writing output file: %v\n", err)
+		return
+	}
+	outputData, err := os.ReadFile(outputFile)
+	if err != nil {
+		fmt.Printf("Erreur lors de la lecture du fichier de sortie: %v\n", err)
+		return
+	}
+	fmt.Println(string(outputData))
 }

@@ -10,18 +10,16 @@ func MergeApostrophes(s []string) []string {
 		if s[i] == "'" {
 			if !inQuote {
 				inQuote = true
-				str = "'"
+				str = ""
 			} else {
 				inQuote = false
-				inner := strings.TrimSpace(str[1:])
-				str = "'" + inner 
-				str += "'"
-				res = append(res, str)
+				inner := strings.TrimSpace(str)
+				res = append(res, "'"+inner+"'")
 				str = ""
 			}
 		} else if inQuote {
-			if str == "'" {
-				str += s[i]
+			if str == "" {
+				str = s[i]
 			} else {
 				str += " " + s[i]
 			}
@@ -30,9 +28,8 @@ func MergeApostrophes(s []string) []string {
 		}
 	}
 	if inQuote && str != "" {
-		inner := strings.TrimSpace(str[1:])
-        str = "'" + inner
-        res = append(res, str)
+		inner := strings.TrimSpace(str)
+		res = append(res, "'"+inner)
 	}
 	return res
 }

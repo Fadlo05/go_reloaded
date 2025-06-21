@@ -4,6 +4,10 @@ func isPunct(c byte) bool {
 	return c == '.' || c == ',' || c == '!' || c == '?' || c == ':' || c == ';'
 }
 
+func isQuote(c byte) bool {
+	return c == '\''
+}
+
 func Tokenizer(words []string) []string {
 	str := []string{}
 
@@ -13,29 +17,29 @@ func Tokenizer(words []string) []string {
 		}
 
 		if word[0] == '\'' && word[len(word)-1] == '\'' && len(word) > 2 {
-			str = append(str, "'", word[1:len(word)-1], "'")
+			str = append(str, "'")
+			str = append(str, word[1:len(word)-1])
+			str = append(str, "'")
 			continue
 		}
-
-		for len(word) > 0 && isPunct(word[0]) {
-			str = append(str, string(word[0]))
-			word = word[1:]
+		start := 0
+		for start < len(word) && (isPunct(word[start]) || isQuote(word[start])) {
+			start++
 		}
-		if len(word) == 0 {
-			continue
+		if start > 0 {
+			str = append(str, word[:start])
+			word = word[start:]
 		}
-
 		end := len(word)
-		for end > 0 && isPunct(word[end-1]) {
+		for end > 0 && (isPunct(word[end-1]) || isQuote(word[end-1])) {
 			end--
 		}
-
-		str = append(str, word[:end])
-
+		if end > 0 {
+			str = append(str, word[:end])
+		}
 		if end < len(word) {
 			str = append(str, word[end:])
 		}
 	}
-
 	return str
 }

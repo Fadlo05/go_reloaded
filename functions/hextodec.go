@@ -7,7 +7,7 @@ import (
 func HexToDecimal(s string) string {
 	n, err := strconv.ParseInt(s, 16, 64)
 	if err != nil {
-		return ""
+		return "error"
 	}
 	return strconv.Itoa(int(n))
 }
