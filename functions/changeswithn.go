@@ -5,7 +5,7 @@ import "strings"
 func ChangesWithN(s []string) []string {
 	res := []string{}
 	for i := 0; i < len(s); i++ {
-		if strings.HasPrefix(s[i], "(cap") {
+		if strings.HasPrefix(s[i], "(cap") && isFlag(s[i]) {
 			num := getNumber(s[i])
 			start := len(res) - num
 			if start < 0 {
@@ -14,7 +14,7 @@ func ChangesWithN(s []string) []string {
 			for j := start; j < len(res); j++ {
 				res[j] = Capitalize(res[j])
 			}
-		} else if strings.HasPrefix(s[i], "(low") {
+		} else if strings.HasPrefix(s[i], "(low") && isFlag(s[i]) {
 			num := getNumber(s[i])
 			start := len(res) - num
 			if start < 0 {
@@ -23,7 +23,7 @@ func ChangesWithN(s []string) []string {
 			for j := start; j < len(res); j++ {
 				res[j] = ToLower(res[j])
 			}
-		} else if strings.HasPrefix(s[i], "(up") {
+		} else if strings.HasPrefix(s[i], "(up") && isFlag(s[i]) {
 			num := getNumber(s[i])
 			start := len(res) - num
 			if start < 0 {
