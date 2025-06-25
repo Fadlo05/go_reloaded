@@ -10,25 +10,25 @@ func Process(s []string) []string {
 			continue
 		}
 
-		if s[i] == "(hex)" && i > 0 {
+		if i > 0 && (s[i] == "(hex)" || s[i] == "(hex)\n") {
 			if HexToDecimal(result[len(result)-1]) == "error" {
 				fmt.Println("this is not valid hex")
 				return nil
 			}
 			result[len(result)-1] = HexToDecimal(result[len(result)-1])
 
-		} else if s[i] == "(bin)" && i > 0 {
+		} else if i > 0 && (s[i] == "(bin)" || s[i] == "(bin)\n") {
 			if BinToDecimal(result[len(result)-1]) == "error" {
 				fmt.Println("this is not valid bin")
 				return nil
 			}
 			result[len(result)-1] = BinToDecimal(result[len(result)-1])
 
-		} else if s[i] == "(up)" && i > 0 {
+		} else if i > 0 && (s[i] == "(up)" || s[i] == "(up)\n") {
 			result[len(result)-1] = ToUpper(result[len(result)-1])
-		} else if s[i] == "(low)" && i > 0 {
+		} else if i > 0 && (s[i] == "(low)" || s[i] == "(low)\n") {
 			result[len(result)-1] = ToLower(result[len(result)-1])
-		} else if s[i] == "(cap)" && i > 0 {
+		} else if i > 0 && (s[i] == "(cap)" || s[i] == "(cap)\n") {
 			result[len(result)-1] = Capitalize(result[len(result)-1])
 		} else {
 			result = append(result, s[i])

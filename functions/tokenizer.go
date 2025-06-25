@@ -23,7 +23,15 @@ func Tokenizer(words []string) []string {
 			continue
 		}
 		start := 0
-		for start < len(word) && (isPunct(word[start]) || isQuote(word[start])) {
+		for start < len(word) && isQuote(word[start]){
+			start++
+		}
+		if start > 0 {
+			str = append(str, word[:start])
+			word = word[start:]
+		}
+		start = 0
+		for start < len(word) && isPunct(word[start]){
 			start++
 		}
 		if start > 0 {
