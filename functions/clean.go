@@ -1,29 +1,32 @@
 package functions
 
 func Clean(input string) []string {
-	startIndex := 0
-	words := []string{}
+	// Convertit la chaîne en []rune pour indexer par caractère logique (rune)
+	runes := []rune(input)
+	var words []string
+	start := 0
 	isInsideParentheses := false
-	for i, char := range input {
-		if char == '(' {
-			isInsideParentheses = true
-		} else if char == ')' {
-			isInsideParentheses = false
-		}
-		if char != ' ' && i != len(input)-1 && !isInsideParentheses {
-			startIndex++
-		} else if isInsideParentheses {
-			startIndex++
-		}
-		if char == ' ' && startIndex != 0 && !isInsideParentheses {
-			wordStart := i - startIndex
-			words = append(words, input[wordStart:i])
-			startIndex = 0
 
-		} else if i == len(input)-1 && !isInsideParentheses && char != ' ' {
-			wordStart := i - startIndex
-			words = append(words, input[wordStart:])
+	for i, r := range runes {
+		// if r == '(' {
+		// 	isInsideParentheses = true
+		// } else if r == ')' {
+		// 	isInsideParentheses = false
+		// }
+
+		// Détection de fin de mot : espace hors parenthèses
+		if r == ' ' && !isInsideParentheses {
+			if start < i {
+				words = append(words, string(runes[start:i]))
+			}
+			start = i + 1
 		}
 	}
+
+	// Ajoute le dernier mot s'il reste quelque chose
+	if start < len(runes) {
+		words = append(words, string(runes[start:]))
+	}
+
 	return words
 }

@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"strings"
 
 	"goreloaded/functions"
 )
@@ -25,6 +26,10 @@ func readFile(filename string) (string, error) {
 
 func main() {
 	args := os.Args[1:]
+	if strings.HasSuffix(args[0], ".go") || strings.HasSuffix(args[1], ".go"){
+		fmt.Println("Invalid Input.")
+		return
+	}
 	text, err := readFile(args[0])
 	if err != nil {
 		fmt.Println("Erreur lors de la lecture du fichier:", err)

@@ -27,6 +27,8 @@ func isFlag(flag string) bool {
 	// Supprimer les espaces superflus autour des parties
 	parts[0] = strings.TrimSpace(parts[0])
 	parts[1] = strings.TrimSpace(parts[1])
+	// fmt.Println(parts[0])
+	// fmt.Println(parts[1])
 
 	// Vérifier que le type est l'un des suivants
 	if parts[0] != "low" && parts[0] != "cap" && parts[0] != "up" {

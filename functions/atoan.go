@@ -2,14 +2,13 @@ package functions
 
 func AToAn(s []string) []string {
 	var res []string
-	i := 0
-	for i < len(s) {
-		if i+1 < len(s) && CheckVowel(s[i+1]) && s[i] == "a" {
+	for i := 0; i < len(s); i++ {
+		if i+1 < len(s) && s[i] == "a" && CheckVowel(s[i+1]) {
 			res = append(res, "an")
-			i ++
+		} else if i+1 < len(s) && s[i] == "A" && CheckVowel(s[i+1]) {
+			res = append(res, "An")
 		} else {
 			res = append(res, s[i])
-			i++
 		}
 	}
 	return res
