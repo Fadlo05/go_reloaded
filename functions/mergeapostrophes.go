@@ -1,35 +1,44 @@
 package functions
 
-import "strings"
+import (
+	"strings"
+	"unicode"
+)
 
-func MergeApostrophes(s []string) []string {
-	res := []string{}
-	str := ""
-	inQuote := false
-	for i := 0; i < len(s); i++ {
-		if s[i] == "'" {
-			if !inQuote {
-				inQuote = true
-				str = ""
+func MergeApostrophes(text string) []string {
+	statut := false
+	var result []rune
+	slice := []rune(text)
+	for i := 0; i < len(slice); i++ {
+		if slice[i] == '\'' && (i+1 < len(slice) && i-1 >= 0) && (unicode.IsLetter(slice[i+1]) && unicode.IsLetter(slice[i-1])) {
+			result = append(result, rune(slice[i]))
+			i++
+		}
+		if slice[i] == '\'' {
+			if !statut {
+				statut = true
+				if i-1 >= 0 && slice[i-1] != ' ' && len(result) > 0 && result[len(result)-1] != ' ' {
+					result = append(result, ' ')
+				}
+				result = append(result, rune(slice[i]))
+				if i+1 < len(slice) && slice[i+1] == ' ' {
+					i++
+				}
 			} else {
-				inQuote = false
-				inner := strings.TrimSpace(str)
-				res = append(res, "'"+inner+"'")
-				str = ""
-			}
-		} else if inQuote {
-			if str == "" {
-				str = s[i]
-			} else {
-				str += " " + s[i]
+				statut = false
+				if len(result) > 0 && result[len(result)-1] == ' ' {
+					result = result[:len(result)-1]
+				}
+				result = append(result, rune(slice[i]))
+				if (i+1 < len(slice)) && (slice[i+1] != ' ' && slice[i+1] != '\n' && !CheckPonc(string(slice[i+1]))) {
+					result = append(result, ' ')
+				}
 			}
 		} else {
-			res = append(res, s[i])
+			result = append(result, rune(slice[i]))
 		}
 	}
-	if inQuote && str != "" {
-		inner := strings.TrimSpace(str)
-		res = append(res, "'"+inner)
-	}
-	return res
+	sliceRes := strings.Split(string(result), " ")
+
+	return sliceRes
 }

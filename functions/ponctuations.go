@@ -14,7 +14,7 @@ func noLetter(s string) bool {
 	return true
 }
 
-func Ponctuations(s []string) []string {
+func Ponctuations(s []string) string {
 	var res []string
 	par := ""
 
@@ -46,5 +46,7 @@ func Ponctuations(s []string) []string {
 		}
 	}
 
-	return r
+	resStr := strings.Join(r , " ")
+
+	return resStr
 }

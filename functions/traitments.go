@@ -5,8 +5,8 @@ func Traitments(s string) []string {
 	tokens := Tokenizer(words)
 	tokens = Process(tokens)
 	tokens = ChangesWithN(tokens)
-	tokens = MergeApostrophes(tokens)
-	tokens = Ponctuations(tokens)
+	resStr := Ponctuations(tokens)
+	tokens = MergeApostrophes(resStr)
 	tokens = AToAn(tokens)
 	return tokens
 }
