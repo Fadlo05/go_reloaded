@@ -17,8 +17,6 @@ func noLetter(s string) bool {
 func Ponctuations(s []string) string {
 	var res []string
 	par := ""
-
-	// Première étape : regrouper ponctuations entre elles
 	for i := 0; i < len(s); i++ {
 		if CheckPonc(s[i]) {
 			par += s[i]
@@ -33,8 +31,6 @@ func Ponctuations(s []string) string {
 	if par != "" {
 		res = append(res, par)
 	}
-
-	// Deuxième étape : concaténer ponctuations au mot précédent
 	var r []string
 	for _, tok := range res {
 		if len(r) > 0 &&
@@ -45,7 +41,6 @@ func Ponctuations(s []string) string {
 			r = append(r, tok)
 		}
 	}
-
 	resStr := strings.Join(r , " ")
 
 	return resStr

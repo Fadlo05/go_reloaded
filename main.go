@@ -30,7 +30,7 @@ func main() {
 		return
 	}
 	args := os.Args[1:]
-	if strings.HasSuffix(args[0], ".go") || strings.HasSuffix(args[1], ".go"){
+	if strings.HasSuffix(args[0], ".go") || strings.HasSuffix(args[1], ".go") {
 		fmt.Println("Invalid Input.")
 		return
 	}
@@ -44,20 +44,15 @@ func main() {
 
 	temp := strings.Split(result, "\n")
 	slice := []string{}
-	for i := 0 ; i < len(temp) ; i++ {
-		slice = append(slice, strings.Trim(temp[i] , " "))
+	for i := 0; i < len(temp); i++ {
+		slice = append(slice, strings.Trim(temp[i], " "))
 	}
 
 	final := strings.Join(slice, "\n")
- 	outputFile := args[1]
+	outputFile := args[1]
 	err = os.WriteFile(outputFile, []byte(final), 0o644)
 	if err != nil {
 		fmt.Printf("Error writing output file: %v\n", err)
-		return
-	}
-	_, err = os.ReadFile(outputFile)
-	if err != nil {
-		fmt.Printf("Erreur lors de la lecture du fichier de sortie: %v\n", err)
 		return
 	}
 }
