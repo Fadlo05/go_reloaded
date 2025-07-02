@@ -1,2 +1,2 @@
-'an apple
-
+an apple
+an

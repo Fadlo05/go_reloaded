@@ -30,7 +30,7 @@ func main() {
 		return
 	}
 	args := os.Args[1:]
-	if strings.HasSuffix(args[0], ".go") || strings.HasSuffix(args[1], ".go") {
+	if args[0] != "sample.txt" || !strings.HasSuffix(args[1], ".txt") ||  args[1] == ".txt"  {
 		fmt.Println("Invalid Input.")
 		return
 	}
